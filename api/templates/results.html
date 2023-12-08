@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Gallery</title>
+  <link rel="stylesheet" href="../static/css/results.css">
+</head>
+<body>
+  
+  <h1> Here's the food list! </h1> 
+	
+  <a href="user_info" class="my-profile-button">My Profile</a>
+
+  {% for i in range([20, result_args['count']]|min) %}
+  <div class="food-box" data-ingredientlist='{{ result_args["ingredient"][i] | tojson }}' data-recipeurl='{{ result_args["recipeURL"][i] | tojson }}'>
+    <img src="{{ result_args.get('image')[i] }}" alt="Food 1">
+    <h3>{{ result_args.get('name')[i] }}</h3>
+    <div class="details">
+      <p>Calories: {{ result_args.get('calories')[i] }} kcal</p>
+      <p>Protein: {{ result_args.get('protein')[i] }} g</p>
+    </div>
+    <button class="favorite-btn" data-food-id="{{ i }}"></button>
+  </div>
+  {% else %}
+  <b>No results...</b>
+  {% endfor %}
+
+  <div id="hoverWindow" class="hidden">
+    <div id="contentContainer">
+      <!-- Content will be added dynamically here -->
+    </div>
+    <br>
+    <a href="#" id="closeWindowBtn"></a>
+  </div>
+
+  <script src="../static/js/recipe.js"></script>
+  <script src="../static/js/favButton.js"></script>
+</body>
+</html>
